@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClipMaster AI</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#090d18;color:white;
+ font-family:Arial,sans-serif;padding:20px;
+}
+.container{max-width:650px;margin:auto}
+header{text-align:center;padding:25px 0}
+.logo{font-size:38px}
+h1{margin:8px;color:#8b9cff}
+header p{color:#aab2c5}
+.card{
+ background:#151c2d;padding:20px;
+ border:1px solid #29334c;border-radius:16px;
+ margin:18px 0;
+}
+h2{font-size:19px}
+label{display:block;margin:15px 0 8px}
+input,select,textarea{
+ width:100%;padding:14px;border-radius:9px;
+ border:1px solid #39445f;background:#0c1220;
+ color:white;font-size:15px;
+}
+button{
+ width:100%;padding:15px;border:0;
+ border-radius:10px;background:#695cff;
+ color:white;font-size:16px;font-weight:bold;
+ margin-top:15px;
+}
+button:active{opacity:.8}
+.note{font-size:13px;color:#aab2c5;line-height:1.6}
+.feature{
+ background:#202a40;padding:12px;
+ border-radius:9px;margin:8px 0;
+}
+#result{white-space:pre-wrap;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+<div class="logo">✂️</div>
+<h1>ClipMaster AI</h1>
+<p>Your Personal AI Viral Shorts Studio</p>
+</header>
+
+<div class="card">
+<h2>🎬 Create Viral Clips</h2>
+
+<label>YouTube Video Link</label>
+<input id="video" placeholder="Paste YouTube video link">
+
+<label>Clip Duration</label>
+<select id="duration">
+<option>25-55 Seconds</option>
+<option>15-30 Seconds</option>
+<option>30-60 Seconds</option>
+</select>
+
+<label>Content Category</label>
+<select id="category">
+<option>Gaming</option>
+<option>Funny Moments</option>
+<option>Live Stream</option>
+<option>Podcast</option>
+<option>Any YouTube Video</option>
+</select>
+
+<label>Caption Language</label>
+<select id="language">
+<option>Hindi</option>
+<option>English</option>
+<option>Hinglish</option>
+</select>
+
+<button onclick="makePrompt()">✨ Generate AI Clipping Prompt</button>
+</div>
+
+<div class="card">
+<h2>🚀 Features</h2>
+<div class="feature">🎯 Find Viral Moments</div>
+<div class="feature">⏱️ Analyze Beginning, Middle & End</div>
+<div class="feature">📱 Vertical Shorts 9:16</div>
+<div class="feature">💬 Hindi & English Captions</div>
+<div class="feature">🔥 Viral Hooks & Titles</div>
+</div>
+
+<div class="card" id="output" style="display:none">
+<h2>🤖 Your AI Prompt</h2>
+<p class="note">Copy this prompt and paste it into Gemini along with your transcript.</p>
+<div id="result"></div>
+<button onclick="copyPrompt()">📋 Copy Prompt</button>
+</div>
+
+<p class="note">
+ClipMaster AI Personal Edition · Free Starter Version
+</p>
+</div>
+
+<script>
+let finalPrompt="";
+
+function makePrompt(){
+ const link=document.getElementById("video").value.trim();
+ const duration=document.getElementById("duration").value;
+ const category=document.getElementById("category").value;
+ const language=document.getElementById("language").value;
+
+ if(!link){
+  alert("Please paste a YouTube link first!");
+  return;
+ }
+
+ finalPrompt=`You are an expert AI Shorts clipper.
+
+Video link: ${link}
+Category: ${category}
+Clip duration: ${duration}
+Caption language: ${language}
+
+Analyze the transcript I provide.
+
+IMPORTANT:
+1. Find the best viral moments from the ENTIRE video.
+2. Cover the beginning, middle and ending equally.
+3. Never invent timestamps or dialogue.
+4. Find funny, shocking and exciting moments.
+5. Give exact start and end timestamps.
+6. Suggest a hook caption for each clip.
+7. Give a viral Shorts title.
+
+Output a table:
+Start | End | Dialogue | Hook | Viral Title
+
+Transcript:
+[PASTE TRANSCRIPT HERE]`;
+
+ document.getElementById("result").textContent=finalPrompt;
+ document.getElementById("output").style.display="block";
+}
+
+function copyPrompt(){
+ navigator.clipboard.writeText(finalPrompt)
+ .then(()=>alert("Prompt copied!"))
+ .catch(()=>alert("Please select and copy the prompt manually."));
+}
+</script>
+</body>
+  </html>
